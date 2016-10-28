@@ -1,5 +1,5 @@
 主流浏览器均提供了四个属性：
-innerWidth,innerHeight,outerWidth,outerHeight
+innerWidth,innerHeight,outerWidth,outerHeight（IE8之前的版本不支持）
 
 innerxxx表示该容器中页面视图区的大小（减去边框宽度）
 outerxxx表示浏览器窗口本身的尺寸
