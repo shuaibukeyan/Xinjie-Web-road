@@ -23,11 +23,11 @@
 2.在浮动元素下面加一个div元素清除浮动
 原本代码
 <div class="father">
-	<div class="child">我要飞得更高</div>
+  <div class="child">我要飞得更高</div>
 </div>
 之后：
 <div class="father">
-	<div class="child">我要飞得更高</div>
+  <div class="child">我要飞得更高</div>
   <div class="bottom"></div>
 </div>
 .father{background: red;}
