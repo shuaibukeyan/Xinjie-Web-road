@@ -43,18 +43,18 @@ seeB.onclick = function(){
 </script>
 在上面代码，我们通过seeB取得了一个按钮的引用，然后给它指定了一个事件处理程序，而且这个事件处理程序是在元素的作用域中运行的（this为btn）
 
-3.DOM2级事件处理程序
+3.DOM2级事件处理程序（IE9+/firefox、chrome...）
 var seeB = document.getElementById("seeB");
-seeB.addEventListener = ("click",function(){
+seeB.addEventListener("click",function(){
 	alert("B");
 },false)
 DOM2级有两个方法addEventListener和removeEventListener，接受三个参数：要处理的事件名（click、mouseover..）、事件处理程序和一个布尔值
 布尔值为true时表示捕获阶段调用事件程序，false表示冒泡时调用事件处理程序。
 addEventListener只能通过removeEventListener来移除，通过addEventListener添加的匿名函数无法移除
 
-4.IE事件处理程序
+4.IE事件处理程序（只IE和Opera支持）（在本地测试了一下，IE11也不支持了，已被抛弃）
 var seeB = document.getElementById("seeB");
-seeB.attachEvent = ("onclick",function(){
+seeB.attachEvent("onclick",function(){
 	alert("B");
 })
 IE事件同样定义两个方法attachEven和detachEvent，接受两个参数：要处理的事件名（onclick、onmouseover）和事件处理程序。
