@@ -1,0 +1,28 @@
+结合代码来看：
+
+1.对block水平元素
+.father{margin:0 auto;width:300px;background: red;}
+.child{padding:0 100px;}
+<div class="father">
+	<div class="child">我要飞得更高</div>
+</div>
+无论以上的padding左右设置多少，父级元素的宽度始终是300px，所以padding只对当前设置的块状有影响
+
+.father{margin:0 auto;width:300px;background: red;padding:0 100px;}
+.child{}
+在父级元素增添了padding后，可以发现红色背景向左和向右扩展了100px。
+若想使该元素的宽度不随padding而改变，需加上box-sizing: border-box：
+.father{margin:0 auto;width:300px;background: red;padding:0 100px;box-sizing: border-box;}
+在padding值总和不超过元素宽度时，它的宽度是不会改变的，假设以上的padding变成padding：0 200px，元素就会被撑开了
+
+2.对inline-block水平元素，padding只影响水平元素，不影响垂直
+
+3.padding不支持负值，且padding宽度百分比是看父级元素的，比如
+.father{margin:0 auto;width:300px;background: red;}
+.child{padding:50%;}
+<div class="father">
+	<div class="child">我要飞得更高</div>
+</div>
+child的padding为150px，是父级元素300px的一半
+
+4.一些标签元素会有内置padding，button元素的padding兼容性不好，可以用a标签来模拟按钮..如需要原生button按钮可以用<label>

@@ -1,0 +1,53 @@
+以前学CSS的只是粗略地看了一遍，对其中一些内容没有深入的理解...css虽然简单，但一些内容还是要详细理解的，不然后患无穷
+今天重新回顾下了float，看视频加自己敲代码实践，有了新的理解
+
+原本代码（子元素的内容是文字）：
+.father{background: red;}
+.child{}
+我们想让子元素浮动到右边，所以给它加了一个float:right；
+.father{background: red;}
+.child{float:right；}
+但是加上去发现原本的红色背景没有了。审查了一下元素，发现父元素的高度是0。
+这是因为float属性会导致父元素高度的塌陷（这是标准，浮动的原本作用仅仅为了文字环绕作用）。要想让红色背景重现，我们可以采取以下方式：
+
+1.给父元素加个float或给父元素加高度：
+.father{float:right；background: red;}或.father{height:50px；background: red;}
+.child{float:right；}
+这样背景就重现了。
+加float：红色背景仅仅包裹文字，而不是像以前的一行长条红色背景，这就是浮动的包裹性。但是这样它的父元素也浮动了。
+加height:高度固定下来了，以后内容增加时还要去调节高度
+浮动父元素的优先级比较高，以下代码文字是浮动到左边的
+.father{float:left；background: red;}
+.child{float:right；}
+
+2.在浮动元素下面加一个div元素清除浮动
+原本代码
+<div class="father">
+  <div class="child">我要飞得更高</div>
+</div>
+之后：
+<div class="father">
+  <div class="child">我要飞得更高</div>
+  <div class="bottom"></div>
+</div>
+.father{background: red;}
+.child{float:right；}
+.bottom{clear:both}
+这样就清除了浮动，但裸div元素增加冗余代码
+
+3.通过css伪元素，在父元素的div上加上这个clearfix这个class（推荐）
+.father{background: red;}
+.child{float:right；}
+.clearfix：after{display:table; content:"";clear:both;}
+但万恶的ie6,ie7是不认伪元素的，所以我们还要
+.clearfix{zoom:1;}
+.clearfix:after{content:"";display:block;clear:both}
+
+总结：
+1.浮动具有包裹性
+2.父级元素的浮动优先
+3.浮动具有破坏性，会使父级元素塌陷，我们可以通过:after伪元素来清除浮动
+4.谨慎使用浮动，尽量采用浮动加margin/padding相结合，使页面能达到自适应
+5.float在低版本ie会有许多bug..留待以后碰到时解决
+
+以前我只是浅显地认为浮动就是浮动左和浮动右，但其实里面也包含了许多知识...

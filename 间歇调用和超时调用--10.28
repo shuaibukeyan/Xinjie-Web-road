@@ -1,0 +1,77 @@
+1.setInterval(a，b)  a可以为一个函数或一个字符串（不推荐），b为刷新的毫秒数
+间歇调用：按照指定的时间间隔重复执行代码，直至被取消或者页面被卸载。
+写了个例子：
+var num = 0;
+var aa = setInterval(function(){
+	num++;
+	if(num === 10){
+		clearInterval(aa);
+	}
+	document.write(num);
+},1000);
+每隔一秒，num+1并document.write出来，当num=10时结束间歇调用。
+在搜狗和chrome上浏览器会每隔一秒呈现出一个数字，最终结果是1234...10。
+而在IE上浏览器直接出现了一个1，剩下的没有呈现出来。搜索一下发现是IE缓存的问题，但没找到解决方法...留待以后碰到IE相关问题时解决
+
+2.setTimeout(a,b) a可以为一个函数或一个字符串（不推荐），b为等待执行的时间，只执行一次
+改用以上的例子，实现一样的效果：
+var num = 0;
+var aa = function(){
+	if(num<10){
+		num++;
+		setTimeout(aa,1000);
+    document.write(num);
+	}
+}
+setTimeout(aa,1000);
+
+书上写到：一般认为，使用超时调用来模拟间歇调用是一种最佳模式，因为使用间歇调用时，后一个间歇调用可能会在前一个间歇调用结束之前启动。
+所以，最好不要使用间歇调用。
+
+总结：
+本以为挺简单的JS，但实践过程中还是犯了许多错误，一个是细心的问题，两个是学得不够深入的问题：
+1.把document.write写到if之外，导致了123...1010的结果，重复出现了10
+var num = 0;
+var aa = function(){
+	if(num<10){
+		num++;
+		setTimeout(aa,1000);
+    }
+    document.write(num);
+}
+setTimeout(aa,1000);
+
+2.这个错误我还不能太理解，直接调用aa的话，1出现后会被2所覆盖，出现234...10这样的结果
+var num = 0;
+var aa = function(){
+	if(num<10){
+		num++;
+		setTimeout(aa,1000);
+    }
+    document.write(num);
+}
+aa();
+
+3.把setTimeout直接赋值给bb，再通过bb()调用是不可行，此时的bb不是一个函数，setTimeout是window的一个对象，表示浏览器的一个实例：window.setTimeout()
+var num = 0;
+var aa = function(){
+	if(num<10){
+		num++;
+		document.write(num);
+		bb();
+	}
+}
+var bb = setTimeout(aa,1000);
+应该采取以下这种方式，但增加了冗余的代码：
+var num = 0;
+var aa = function(){
+	if(num<10){
+		num++;
+		document.write(num);
+		bb();
+	}
+}
+var bb = function(){setTimeout(aa,1000);}
+bb();
+
+前端之路还很漫长，要想有一番成就还是得夯实基础，学深学宽，浅显的理解只会在将来给自己带来灾难。当然，不光要看书，结合实践多写代码可以使自己学得更加深刻。

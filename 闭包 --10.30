@@ -1,0 +1,62 @@
+闭包这块内容我看了好久，书上的内容比较晦涩难懂，而且运用的都是冗长的代码，一些代码经过测试还不可用...
+然后网上搜索都是很早之前的资料，很多都说滥用闭包会造成内存泄漏，搞得我人心惶惶...
+经过大量查阅后发现，现在使用闭包不用担心那么多，这种情况一般存在低版本的ie，代码写规范一点完全可以避免。以后遇到的话也要针对这个问题进行因地制宜的解决。
+通过看书和相关的搜索，还是大致理解了闭包。闭包就是指有权访问另一个函数作用域中变量的函数。
+说简单点就是子级可以访问父级的作用域，父级如何访问子级作用域中的变量呢？--通过闭包。
+function bb(){
+	var aa = 5;
+	return function h(){
+		return aa+1;
+	};
+}
+var c = bb();
+c();
+
+以上代码中有一个函数bb，在它里面定义了一个局部变量aa=5，还返回了函数h，函数h里返回了aa+1。
+然后我们定义了一个全局变量c = bb()，再运行c()。
+在上面代码中，我们把函数h作为一个值返回，并赋值给了c，然后通过c执行函数h里面的内容（即return aa+1）。
+我们通过全局变量c访问到了函数bb内部的函数h里面的内容，这就是闭包了。事实上，这样写也是可以的：
+var c = bb()(); // bb()()相当于h(),不过不能直接写h()，因为访问不到
+c；
+
+再来看this对象，这个也理解了好久...
+var name = "aa";
+var bb = {
+	name: "bb",
+	getname:function(){
+		return function(){
+			return this.name;
+		}
+	}
+};
+document.write(bb.getname()()); //aa
+
+为什么会出现aa这种结果呢？因为bb.getname()返回的是一个匿名函数，我们假定它是A，然后再A()
+此时的this就是A了，但由于它是一个匿名函数，执行环境具有全局性，所以返回的会是window.name，也就是aa
+我们把它改动一下：
+var name = "aa";
+var bb = {
+	name: "bb",
+	getname:function(){
+		var that = this;
+    return function(){
+			return that.name;
+		}
+	}
+};
+document.write(bb.getname()()); //bb
+我们在执行bb.getname()时定义了一个that等于this（此时this为bb）
+然后在执行bb.getname()()时return that.name，因为that=bb，所以返回的是bb的name
+当然我们在实际工作时肯定不会用那么繁琐的代码，直接这样就行：
+var name = "aa";
+var bb = {
+	name: "bb",
+	getname:function(){
+		
+			return this.name;
+		
+	}
+};
+document.write(bb.getname()()); // bb
+
+书上用前面两个例子也是为了读者能够更好的理解闭包和作用域。

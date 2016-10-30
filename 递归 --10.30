@@ -1,0 +1,33 @@
+之前只是看书没有敲代码，所以一直误认为书上的递归有问题，敲了代码之后才发现是自己脑子有问题...
+递归是在一个函数调用自身的情况下构成的，如以下的一个递归阶乘函数：
+function aa(num){
+	if(num<=1){
+		return 1;
+	}else{
+		return num*aa(num-1);
+	}
+}
+document.write(aa(5)); //最终结果为120
+我们给参数num的值设定为5，第一次执行会renturn 5*aa（4），之后这个4（num-1）就会作为函数aa新的num参数继续执行下去，进行新一轮的循环，直到num的值为1。
+但是，如果我们把这个函数保存到另一个变量中，再把这个函数设为null，就会出问题了，如：
+var bb = aa；
+aa = null；
+document.write(bb(5)); //出错
+虽然aa保存到bb中，但bb在第一次执行时会return 5*aa（4），但此时aa已经为null了，所以会出错。
+为解决这个问题，我们可以用arguments.callee（一个指向正在执行的函数的指针）
+function aa(num){
+	if(num<=1){
+		return 1;
+	}else{
+		return num*arguments.callee(num-1);
+	}
+}
+用arguments.callee代替aa，确保了调用函数不会出问题。但在严格模式下arguments.callee会导致错误，所以我们还可以通过命名函数来达到相同的效果：
+var aa =(function h(num){
+	if(num<=1){
+		return 1;
+	}else{
+		return num*h(num-1);
+	}
+}) 
+在上面代码中函数h保存在aa中，即使aa赋值给bb然后值变为null，函数h依然有效，递归依旧能够完成。

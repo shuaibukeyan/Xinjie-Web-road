@@ -1,0 +1,63 @@
+一、事件流
+事件流描述的是从页面中接受事件的顺序。IE的事件流是冒泡流，而Netscape Communicator用的是捕获流（用的比较少）。
+代码：
+<html>
+<head>
+</head>
+<body>
+  <div>点我触发事件</div>
+</body>
+</html>
+
+冒泡流：事件按照这个顺序传播div>body>html>document
+捕获流：事件按照这个顺序传播document>html>body>div，与冒泡流相反
+dom事件流：事件捕获阶段（div>body>html）、处于目标阶段(div)和事件冒泡阶段(div>body>html>document)
+
+二、事件处理程序
+事件就是用户或浏览器自身执行的某种动作，而响应某个事件的函数就叫做事件处理程序。
+
+1.html事件处理程序：
+<script type="text/javascript">
+function seeB(){
+	alert("B");
+}
+</script>
+<input type="button" value="点我看B" onclick="seeB()"/>
+在以上代码，单击按钮就会调用seeB函数了，出现一个显示B的警告框，但这种方式有一些不足：
+如果seeB在按钮的下方，用户在解析这个函数前就点击了按钮，就会触发错误。
+HTML与JS代码紧密耦合，如果要更改该事件，就要改两个地方：html代码和JS代码，比如我们想把seeB改成seeA，就得变成
+<script type="text/javascript">
+function seeA){
+	alert("A");
+}
+</script>
+<input type="button" value="点我看A" onclick="seeA()"/>
+
+2.DOM0级事件处理程序
+<input type="button" value="点我看B" id="seeB"/>
+<script type="text/javascript">
+var seeB = document.getElementById("seeB");
+seeB.onclick = function(){
+	alert("B");
+}
+</script>
+在上面代码，我们通过seeB取得了一个按钮的引用，然后给它指定了一个事件处理程序，而且这个事件处理程序是在元素的作用域中运行的（this为btn）
+
+3.DOM2级事件处理程序（IE9+/firefox、chrome...）
+var seeB = document.getElementById("seeB");
+seeB.addEventListener("click",function(){
+	alert("B");
+},false)
+DOM2级有两个方法addEventListener和removeEventListener，接受三个参数：要处理的事件名（click、mouseover..）、事件处理程序和一个布尔值
+布尔值为true时表示捕获阶段调用事件程序，false表示冒泡时调用事件处理程序。
+addEventListener只能通过removeEventListener来移除，通过addEventListener添加的匿名函数无法移除
+
+4.IE事件处理程序（只IE和Opera支持）（在本地测试了一下，IE11也不支持了，已被抛弃）
+var seeB = document.getElementById("seeB");
+seeB.attachEvent("onclick",function(){
+	alert("B");
+})
+IE事件同样定义两个方法attachEven和detachEvent，接受两个参数：要处理的事件名（onclick、onmouseover）和事件处理程序。
+与DOM2级相比事件名多了on，没有了布尔值，只支持事件冒泡。且事件处理程序会在全局作用域运行（this为window）
+
+总的来说，事件处理程序要兼容各种浏览器，就得做一下能力检测了...

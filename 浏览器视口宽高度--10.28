@@ -1,0 +1,53 @@
+主流浏览器均提供了四个属性：
+innerWidth,innerHeight,outerWidth,outerHeight（IE8之前的版本不支持）
+
+innerxxx表示该容器中页面视图区的大小（减去边框宽度）
+outerxxx表示浏览器窗口本身的尺寸
+
+还有两个取得页面视口大小的属性：
+document.documentElement.clientWidth，document.documentElement.clientHeight
+以上两个在IE6中必须在标准模式才有效，如果是混杂模式，必须通过
+document.body.clientWidth，document.body.clientHeight 取得相同的信息
+
+（标准模式和混杂模式我查询了一下，大致理解：
+
+混杂模式：不写DOCTYPE
+标准模式：写DOCTYPE
+推荐写<!DOCTYPE html>，它所触发的模式与严格型HTML或严格型XHTML所触发的模式完全相同，节省代码且向前兼容。
+）
+
+我用以下代码在搜狗、chrome、IE上做了测试：
+
+var w1 = window.innerWidth,
+ 	 h1 = window.innerHeight;
+var w2 = window.outerWidth;
+    h2 = window.outerHeight;
+var w3 = document.documentElement.clientWidth;
+    h3 = document.documentElement.clientHeight;
+
+document.write("width:"+w1+" "+"height:"+h1+"<br/>");
+document.write("width:"+w2+" "+"height:"+h2+"<br/>");
+document.write("width:"+w3+" "+"height:"+h3);
+
+
+搜狗：（搜狗返回的都是视口的大小而非浏览器大小）
+width:1536 height:697
+width:1536 height:697
+width:1536 height:697
+
+chrome：（书上说chrome的outerxxx和innerxxx返回相同的值，为视口的大小而非浏览器的大小，但是这里的是不同的...）
+width:1745 height:883
+width:1920 height:1032
+width:1745 height:883
+
+IE：
+width:1920 height:936
+width:1938 height:1050
+width:1920 height:936 
+
+通过浏览器缩放/视口缩放等操作，我得出的结论：
+1.outerxxx通常指的就是整个浏览器的大小，包括白色背景内容部分、滚动条、上面的标签页等等...
+2.innerxxx指的就是视口的大小了，也就是用户使用浏览器时能看到的主体内容（白色背景内容。）不同浏览器会有不同程度的缩放，不过一般都是放大，所以视口宽高度会比浏览器小。
+这样就导致了各个浏览器视口大小的不一致。IE应该是没有经过缩放的
+
+我现在还没有接触浏览器视口的处理问题，只是浅显地理解这个内容，解决这些问题也需要继续深入地学习
