@@ -1,0 +1,63 @@
+在搞清闭包之前，我们先要搞清楚匿名函数的概念：
+function aa（）{
+  document.write("hhh");
+}
+在上面代码中，aa就是函数的名字了，这种方式叫做函数声明
+另一种方式叫做函数表达式，也就是我们说的匿名函数：
+var aa = function(){
+  document.write("hhh");
+}
+function后面并没有声明函数的名字，并且这个函数被赋值给了aa，我们把var aa去掉：
+function(){
+  document.write("hhh");
+}
+这就是一整个匿名函数，它可以被赋值给另一个变量，也可以被其他方式调用
+function ab(){
+  return function(a,b){
+    return a+b;
+  }
+}
+在以上代码中，函数ab返回了一个匿名函数，这个匿名函数是作为一个值来调用的，即a+b的值
+
+接着，我们要搞清楚作用域：
+当代码在一个环境中执行时，会创建变量对象的一个作用域链。它的用途是保证对执行环境有权访问的所有变量和函数的有序访问。
+var aa = 1;
+function ab(bb){
+	if(aa === bb){
+		return "aa is equal to bb.";
+	}else{
+		return "aa is not equal to bb.";
+	}
+}
+document.write(ab(1)); //结果：aa is equal to bb.
+在上面代码中，函数ab的作用域链包含了两个对象，一个是全局环境的变量对象（aa），和它自己的变量对象（bb）。
+在函数内部访问到了变量aa，确定了它的值等于函数自身变量bb，然后输出结果。
+需要注意的是：内部环境可以通过作用域链访问外部环境，但是外部环境没办法访问内部环境中的任何变量和函数。如：
+var aa = 1;
+function ab(){
+  var bb = 1;
+}
+document.write(bb); // error,在外部环境无法访问函数内部的变量bb
+document.write(aa); // 1
+我们把它改一下：
+var aa = 1;
+function ab(){
+  var bb = 1;
+  document.write(bb);
+}
+ab(); // 结果为1，在函数内部就可以访问bb了
+当然，js有一些没有块级的作用域，如if、for：
+var aa = 1;
+if(aa ===1){
+	var bb = 1;
+}
+document.write(bb); // 1
+if语句中的变量声明会将变量添加到全局环境中
+
+var aa = 1;
+for(var i =0;i<aa;i++){
+	var bb = 1;
+}
+document.write(bb); // 1
+document.write(i); // 1
+for语句创建的变量在for循环执行结束后，也会存在于循环外部的环境中
