@@ -1,0 +1,38 @@
+一、工厂模式
+代码如下：
+function aa(name){
+	var bb = {};
+	bb.name = name;
+	bb.sayname = function(){
+		alert(this.name);
+	};
+	return bb;
+}
+var per1 = aa("aa");
+per1.sayname(); // aa
+在上面代码中，我们定义了一个函数aa，在函数aa里面又创建了一个对象bb，bb包含了name的属性和一个提示名字的方法，最终函数返回bb。
+我们需要知道的是，如果直接定义var bb; 是无法为它添加属性的。
+使用该模式的优点是可以创建多个相似的对象（都包含名字的属性和提示名字的方法），而不用写重复的代码，如：
+var per1 = {name:"aa"}
+var per2 = {name:"bb"}
+在创建per1和per2时我们都要重复打上name:，当对象里面的属性繁多时这会很不方便，把这些封装到一个函数里会很便利。
+但是使用工厂模式我们无法识别per1是否是aa的实例。
+
+二、构造函数模式
+function Aa(name){ // 按照惯例，构造函数名第一个字母大写
+	this.name = name;
+	this.sayname = function(){
+		alert(this.name);
+	};
+}
+var per1 = new Aa("aa"); //注意要加一个new，否则this指向会有问题
+per1.sayname(); // aa
+在这个例子中，我们没有像工厂模式一样在里面创建一个对象bb，而是直接将属性和方法赋值给了this，而且没有return语句，方便了好多...
+构造函数还有这两种用法：
+//当做普通函数
+Aa("aa");
+window.sayname()
+//在另一个对象的作用域调用，工厂模式则无法做到
+var per1 = {};		
+aa.call(per1,"aa");
+per1.sayname();
