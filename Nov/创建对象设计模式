@@ -77,11 +77,58 @@ bb.sayname(); // aa
 function aa(){
 }
 aa.prototype = {
-	name:"aa";
+	name:"aa",
 	sayname:function(){
 		alert(this.name);
 	}
 };
 但这个时候aa的原型对象constructor不再指向aa了，而是指向了这个object,也即是说"bb[[Prototype]] > aa的原型对象 && aa的原型属性 > aa的原型对象”
-但是bb[constructor]和aa.prototype[constructor]都不再指向aa
-如果这个constructor属性很重要的话，就需要重新设置了，但是有点繁琐就不写上来了..
+但是bb[constructor]和aa.prototype[constructor]都不再指向aa，而是指向一个对象object
+如果这个constructor属性很重要的话，就需要重新设置了:
+aa.prototype = {
+	constructor:aa,
+	name:"aa",
+	sayname:function(){
+		alert(this.name);
+	}
+};
+注意的是这样会让它的[[Enumberable]]变为true，改动方法太麻烦就不发上来了...
+可以再看以下的代码：
+function aa(){
+}
+var bb = new aa();
+aa.prototype = {
+	name:"aa",
+	sayname:function(){
+		alert(this.name);
+	}
+};
+bb.sayname(); // 错误
+上面的代码中bb[constructor]还是指向aa，此时aa的原型对象为空，之后的重写是不会影响到定义在它之前的bb的，所以bb.sayname没有被定义，发生错误。
+原型模式还是一些缺陷的，比如下面：
+aa.prototype = {
+	arr:[3,4],
+	name:"aa",
+	sayname:function(){
+		alert(this.name);
+	}
+};
+var bb = new aa();
+var cc = new aa();
+bb.arr.push(5);
+document.write(cc.arr) // 3,4,5
+由于这个数组是存在于原型对象之中，修改bb.arr就相当于修改了原型对象的arr，所以cc.arr也跟着改变了。
+而且，实际工作中我们肯定不希望bb和cc的name是一样的，它们要有分别的name。
+
+四、组合使用构造函数模式和原型模式
+function aa(name){
+	this.name = name;
+}
+aa.prototype = {
+	constructor:aa,
+	sayname:function(){
+		alert(this.name);
+	}
+}
+在上面代码中，由实例共享的方法被定义到了原型对象之中，实例自身的属性则是在函数里面定义的。
+书上说：这是ES中使用最广泛、认同度最高的一种创建自身定义类型的方法。
