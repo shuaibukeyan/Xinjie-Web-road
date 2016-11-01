@@ -36,3 +36,52 @@ window.sayname()
 var per1 = {};		
 aa.call(per1,"aa");
 per1.sayname();
+书上还写到了创建同样任务的function实例没有必要，可以把函数转移到构造函数外部
+function Aa(name){ 
+	this.name = name;
+	this.sayname = sayname;
+}
+function sayname(){
+	alert(this.name);
+}
+对此我的理解是，之前sayname对应匿名函数每运行一次Aa就要创建一次。
+如果要创建的对象多的话，就会相应创建出大量函数，而这些函数其实都是同一个功能。
+所以我们可以把sayname移到构造函数外来定义，再给this.sayname一个指针指向这个函数，这样创建的对象都是共用一个函数了。
+但是，新的问题来了。我们只是单纯的alert(this.name)，如果要alert(this.age)/alert(this.job)...呢？就得定义很多个全局函数了。
+而且这些函数其实只能被一个对象调用，让它的全局作用域显得有点名不副实。
+
+三、原型模式
+首先我们要了解，当我们创建一个函数时，它自动创建一个prototype的属性，这个属性指向prototype对象。
+使用function定义的对象有一个prototype属性，使用new生成的对象实例就没有这个prototype属性
+function aa(){
+}
+aa.prototype.name = "aa";
+aa.prototype.sayname = function(){
+		alert(this.name);
+}
+var bb = new aa();
+bb.sayname(); // aa
+在上面的代码中我们定义了一个函数aa，并且给它一个原型对象name和一个原型对象方法sayname，它们都有一个指向aa的指针constructor。
+接着我们定义bb = new aa()，这个时候bb内部有一个指向aa原型的指针[[Prototype]]，使得它可以访问aa的原型对象。总的来说，流程是这样的：
+">" 表示指向
+“bb[[Prototype]] > aa的原型对象 && aa的原型对象[constructor] > aa && aa的原型属性 > aa的原型对象”  
+并且“bb[constructor] > aa”
+需要注意的是，这时候我们设置bb.name，会切断它和aa原型对象之间的联系，把它设置为null也没用，只能通过delete删除这个属性。
+bb.name = "bb";
+bb.sayname(); // bb
+bb.name = null; //
+bb.sayname() // null
+delete bb.name;
+bb.sayname(); // aa
+当我们的原型对象较多时，我们可以采取以下方式来缩减代码：
+function aa(){
+}
+aa.prototype = {
+	name:"aa";
+	sayname:function(){
+		alert(this.name);
+	}
+};
+但这个时候aa的原型对象constructor不再指向aa了，而是指向了这个object,也即是说"bb[[Prototype]] > aa的原型对象 && aa的原型属性 > aa的原型对象”
+但是bb[constructor]和aa.prototype[constructor]都不再指向aa
+如果这个constructor属性很重要的话，就需要重新设置了，但是有点繁琐就不写上来了..
