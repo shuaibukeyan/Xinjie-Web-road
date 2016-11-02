@@ -1,0 +1,55 @@
+ES只支持实现继承，主要依靠原型链来实现的
+
+1.原型链
+先看代码:
+function aa(){
+	this.property = "aa";
+}
+aa.prototype.getP = function(){
+	return this.property;
+}
+function bb(){
+	this.subproperty = "bb";
+}
+bb.prototype = new aa();
+var cc = new bb();
+document.write(cc.property)  // aa
+在上面这个例子中，cc[[Prototype]] > bb, bb>bb.prototype, bb.prototype[[Prototype]]>aa.prototype, aa.prototype[constructor]>aa 流程大概就是这样了，
+但是如果我们把bb的this.subproperty改成this.property,情况又会不同了:
+function bb(){
+	this.property = "bb";
+}
+bb.prototype = new aa();
+var cc = new bb();
+document.write(cc.property)  // bb
+在这个例子中,函数bb重新定义了property,在cc[[Prototype]]>bb时，property已经被找到了，所以直接输出了bb。
+虽然这个例子和上个例子一样,cc[constructor]最终都是指向aa。
+同样地：
+document.write(bb.prototype.property) //aa
+bb.prototype[[Prototype]]>aa ，所以aa直接被输出，也再次说明了原型对象和实例对象是不一样的。
+注意的是，在用原型链实现继承时，不能使用对象字面创建原型方法，会切断原型链。
+
+原型链的问题：
+1.跟原型模式的问题一样，一个原型对象会被它的实例所共享，如下面代码：
+function aa(){
+	this.property = "aa";
+	this.num = [1,2,3]
+}
+aa.prototype.getP = function(){
+	return this.property;
+}
+function bb(){
+	this.property = "bb";
+}
+bb.prototype = new aa();
+var cc = new bb();
+var dd = new bb();
+cc.num.push(4);
+document.write(dd.num) // 1,2,3,4
+
+num虽然是在构造函数aa里面创建的，但是当bb.prototype = new aa()时，它就变成了bb的一个原型对象。
+而之后的dd和cc都是bb原型对象的实例，他们会共享num这一属性，一个改动，另一个也会跟着改动。
+
+2.没有办法在不影响所有对象实例的情况下，给超类型的构造函数传递参数。
+
+
