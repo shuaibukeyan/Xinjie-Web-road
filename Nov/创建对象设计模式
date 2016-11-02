@@ -132,3 +132,15 @@ aa.prototype = {
 }
 在上面代码中，由实例共享的方法被定义到了原型对象之中，实例自身的属性则是在函数里面定义的。
 书上说：这是ES中使用最广泛、认同度最高的一种创建自身定义类型的方法。
+
+五、动态原型模式
+function aa(name){
+	this.name = name;
+	if(typeof this.sayname != "function"){
+		aa.prototype.sayname = function(){
+			alert(this.name);
+		};
+	}
+}
+在上面代码中，我们把aa的原型对象封装到了函数aa中，它只会在初次调用函数aa的时候才会执行。
+之后原型已经定义好了，不需要再重复定义原型对象。但是要记住使用这种方法时不能重写原型，因为这会切断实例和原型之间的关系。
