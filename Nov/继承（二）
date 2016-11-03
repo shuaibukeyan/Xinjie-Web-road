@@ -1,0 +1,59 @@
+在继承里写了原型链，现在来写继承方法：
+
+1.借用构造函数
+function aa(){
+	this.property = "aa";
+	this.num = [1,2,3]
+}
+aa.prototype.getP = function(){
+	return this.property;
+}
+function bb(){
+	aa.call(this);
+}
+var cc = new bb();
+cc.num.push(4);
+var dd = new bb();
+document.write(dd.num) // 1,2,3,4
+
+在上面代码中函数bb借用了aa的方法，调用其实是实例的方法，所以cc和dd都是bb的实例，所以不会重写num的属性。
+但是，方法都在构造函数之中，函数复用也很难谈起了。
+
+2.组合继承
+这个其实和前面组合函数模式差不多:
+function aa(name){
+	this.name = name;
+	this.num = [1,2,3];
+}
+aa.prototype.getP = function(){
+	return this.name;
+}
+
+function bb(name,age){
+	aa.call(this,name);  // 第二次调用aa
+	this.age = age;
+}
+bb.prototype = new aa();  //第一次调用aa
+bb.prototype.constructor = bb;
+bb.prototype.getA = function(){
+	return this.age;
+}
+
+var cc = new bb("cc",11);
+document.write(cc.getP()) // cc
+把共用的函数定义在原型里面，与组合函数相比只是多了继承..其实name,age都可以封装到一个函数内，这里为了实现继承，采取了麻烦的方式。
+
+3.寄生组合式继承
+原型继承不太实用就直接跳过了，每次都要重写实例的属性。这个寄生组合式继承与组合继承相比，在于它不用调用两次bb函数。
+直接把第一次调用函数的过程封装到另一个函数里面。
+封装过程：
+function inherit(bb,aa){
+  var prototype = aa.prototype;
+  prototype.constructor =bb;
+  bb.prototype = prototype;
+}
+书上说：开发人员普遍认为这是引用类型最理想的继承范式...
+
+总结：其实总的来说原型链的继承我算是搞清楚了，不过书上用的例子让我有点迷茫。
+因为name,age完全可以封装在一个函数内，而不用分别位于两个函数，这样明显添加了代码的复杂度...
+目前我还是不知道这个寄生组合继承如何应用于实践..接下来多做项目吧，从项目中发现问题，解决问题，提升自身
