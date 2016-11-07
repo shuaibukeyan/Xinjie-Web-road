@@ -37,3 +37,5 @@ odrag.onmousedown = function(e){
 以上就为拖拽的JS的代码了，我是照着视频模仿着写出来的，代码有许多的不足..
 在这过程中印象比较深刻的就是获取鼠标的event.clientX不能重用，如：aa = e.clientX-（e.clientX-x），这样写是没有效果
 还有要获取鼠标坐标的话必须加e = event || window.event，然后e.clientX，或者直接event.clientX也行（不过要注意IE的不同写法）
+
+event相关知识点：在触发DOM上的某个事件时，会产生一个事件对象event，这个对象包含着所有与事件有关的信息。所有的浏览器都支持event，但支持方式不同。
