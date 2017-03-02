@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<h1>网站一级标题</h1>
+	<ul>
+		<li><a href="#"></a>导航链接1</li>
+		<li><a href="#"></a>导航链接2</li>
+		<li><a href="#"></a>导航链接3</li>
+		<li><a href="#"></a>导航链接4</li>
+	</ul>
+	<h2>文章一级标题</h2>
+	<h2>文章二级标题</h2>
+	<p>发货时看见顾客就不能文件文本框文件看微博看见微博高价位必我补个坑我微观就</br>
+		fhjgnkjgnkebgkjwegkj</br>
+		这是一个链接<a href="#">www.baidu.com</a><br>
+		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488466704960&di=56e99850ee4f07d15a866d925a5a6e77&imgtype=0&src=http%3A%2F%2Ffmn.rrimg.com%2Ffmn061%2Fxiaozhan%2F20120214%2F1000%2Fp%2Fm2w900hq85lt_x_large_q3Cr_385a0000309a1263.jpg">
+	</p>
+	<h2>另一篇文章</h2>
+	<p>发货就考试不挂科建设部就看不惯克刚看见社保卡角色跟不开机比较闭塞观看吧课</br>
+		南方科技是哪个客观讲可能借个看老公是高考索拉卡那上路坑更快乐呢龙林肯看过来看</br>
+	</p>
+	好看的图片<br>
+	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488466704960&di=56e99850ee4f07d15a866d925a5a6e77&imgtype=0&src=http%3A%2F%2Ffmn.rrimg.com%2Ffmn061%2Fxiaozhan%2F20120214%2F1000%2Fp%2Fm2w900hq85lt_x_large_q3Cr_385a0000309a1263.jpg">
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ul>
+	<h2>最后一篇文章</h2>
+	<h2>文章一级标题</h2>
+	文章作者</br>
+	发表时间</br>
+	表格：
+	<table border="1">
+		<tr>
+		<th>表头</td>
+		<th>表头</td>
+		<th>表头</td>
+
+		<tr>
+
+		<td>下面1</td>
+		<td>下面2</td>
+		<td>下面3</td>
+
+		<tr>
+		<td>最后1</td>
+		<td colspan="2">最后2</td>
+
+	</table>
+
+	<h2>侧栏标题？</h2>
+	<form>
+		请输入邮箱地址<input type="text" name="e-mail" placeholder="这是一个文本框"></br>
+		请输入密码<input type="password" name="password" placeholder="这是一个文本框"></br>
+		性别：</br>
+		男<input type="radio" name="male" checked="checked"></br>
+		女<input type="radio" name="male"></br>
+		城市：
+		
+			<select name="cities">
+				<option value="bj">北京</option>
+				<option value="sh">上海</option>
+				<option value="gz" selected="selected">广州</option>
+
+			</select></br>
+		爱好：
+		篮球<input type="checkbox" name=""> 足球<input type="checkbox" name=""> 跑步<input type="checkbox" name=""></br>
+		个人描述：</br>
+		<textarea name="" id="" cols="30" rows="10" placeholder="这是一个文本框"></textarea>
+		<input type="submit" value="提交">
+	</form>
+</body>
+</html>
