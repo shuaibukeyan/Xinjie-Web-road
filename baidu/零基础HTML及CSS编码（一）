@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body,ul,ol,dl,dd,h1,h2,h3,h4,h5,h6,p,input,select,textarea,form{margin: 0; padding: 0;}
+		body{font:14px/1.5 "宋体";}
+
+		.total{
+			background: rgb(222,222,222);
+		}
+		h3{
+			margin-left: 25px;
+			color:grey;
+			margin-top: 10px;
+		}
+		/*topbar*/
+		.Topbar{
+			line-height: 76px;
+			background: rgb(51,51,51);
+			height: 76px;
+			color:white;
+			
+		}
+		.Topbar h1{
+			float:left;
+		}
+		.Topbar ul{
+			float: right;
+			margin-top:auto;
+		}
+		.Topbar ul li{
+			float:left;
+			margin-left:50px;
+		}
+		/*firstPage*/
+		.firstPage,.secondPage,.lastPage,.cl{
+			margin-top: 40px;
+			width: 850px;
+			margin-left: 25px;
+			background: white;
+			border-right: 4px solid rgb(142,142,142);
+			border-bottom:4px solid rgb(142,142,142);
+		}
+		.firstPage h2,p{
+			margin-left:25px;
+			margin-top:10px;
+			display: inline-block;
+		}
+		.secondPage h2,p,ul{
+			margin-left:25px;
+			margin-top:10px;
+			display: block;			
+		}
+		/*lastPage*/
+		.lastPage h2,p{
+			margin-left:25px;
+			margin-top:10px;
+			display: block;			
+		}
+		.lastPage span{
+			margin-left: 20px;
+			margin-top: 10px;
+			color:grey;
+			display: inline-block;
+		}
+		.table{
+			margin-bottom:25px;
+			margin-left: 25px;
+			width: 800px;
+			border: solid #ccc 1px;
+
+		}
+		.table th{
+			color:white;
+			background:black;
+		}
+		.table tr:last-child{
+			background: grey;
+		}
+		/*cl*/
+		.cl h2,p{
+			margin-left:25px;
+			margin-top:10px;
+			display: block;	
+		}
+		.cl span,textarea{
+			margin-left: 150px;
+			margin-top:10px;
+			display: block;
+		}
+		.cl input{
+			margin-left: 10px;
+		}
+		.submitc{
+			width:820px;
+			height:30px;
+			line-height: 25px;
+			margin-top:25px;
+			margin-bottom: 5px;
+			background: rgb(51,85,208);
+			color: white;
+			border-radius: 5px;
+			font-family: "微软雅黑";
+			font-size: 20px;
+			padding-top: 2px;
+			padding-bottom: 2px;
+		}
+	</style>
+</head>
+<body>
+	<div class="total">
+	<div class="Topbar">
+	<h1>网站一级标题</h1>
+	<ul>
+		<li><a href="#"></a>导航链接1</li>
+		<li><a href="#"></a>导航链接2</li>
+		<li><a href="#"></a>导航链接3</li>
+		<li><a href="#"></a>导航链接4</li>
+	</ul>
+	</div>
+	<div>
+	<div class="firstPage">
+	<h2>文章一级标题</h2>
+	<h3>文章二级标题</h3>
+	<p>发货时看见顾客就不能文件文本框文件看微博看见微博高价位必我补个坑我微观就</br>
+		fhjgnkjgnkebgkjwegkj</br>
+		这是一个链接<a href="#">www.baidu.com</a><br>
+		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488466704960&di=56e99850ee4f07d15a866d925a5a6e77&imgtype=0&src=http%3A%2F%2Ffmn.rrimg.com%2Ffmn061%2Fxiaozhan%2F20120214%2F1000%2Fp%2Fm2w900hq85lt_x_large_q3Cr_385a0000309a1263.jpg">
+	</p>
+	</div>
+	<div class="secondPage">
+	<h2>另一篇文章</h2>
+	<p>发货就考试不挂科建设部就看不惯克刚看见社保卡角色跟不开机比较闭塞观看吧课</br>
+		南方科技是哪个客观讲可能借个看老公是高考索拉卡那上路坑更快乐呢龙林肯看过来看</br>
+	</p>
+	<p>好看的图片<br>
+	<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1488466704960&di=56e99850ee4f07d15a866d925a5a6e77&imgtype=0&src=http%3A%2F%2Ffmn.rrimg.com%2Ffmn061%2Fxiaozhan%2F20120214%2F1000%2Fp%2Fm2w900hq85lt_x_large_q3Cr_385a0000309a1263.jpg">
+	</p>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ul>
+	</div>
+	<div class="lastPage">
+	<h2>最后一篇文章</h2>
+	<h3>文章一级标题</h3>
+	<span>文章作者</span>
+	<span>发表时间</span></br>
+	<span>表格：</span>
+	<table class="table">
+		<tr>
+		<th>表头</th>
+		<th>表头</th>
+		<th>表头</th>
+
+		<tr>
+
+		<td>下面1</td>
+		<td>下面2</td>
+		<td>下面3</td>
+
+		<tr>
+		<td>最后1</td>
+		<td colspan="2">最后2</td>
+
+	</table>
+	</div>
+	<div class="cl">
+	<h2>侧栏标题？</h2>
+	<form>
+		<span>请输入邮箱地址<input type="text" name="e-mail" placeholder="这是一个文本框"></br></span>
+		<span>请输入密码<input type="password" name="password" placeholder="这是一个文本框"></br></span>
+		<span>性别：
+		<input type="radio" name="male" checked="checked">男
+		<input type="radio" name="male">女</span>
+		<span>城市：
+		
+			<select name="cities">
+				<option value="bj">北京</option>
+				<option value="sh">上海</option>
+				<option value="gz" selected="selected">广州</option>
+
+			</select></br></span>
+		<span>爱好：
+		<input type="checkbox" name="">篮球<input type="checkbox" name="">足球 <input type="checkbox" name="">跑步</br></span>
+		<span>个人描述：</br></span>
+		<textarea name="" id="" cols="30" rows="10" placeholder="这是一个文本框"></textarea>
+		<input type="submit" value="提交" class="submitc">
+	</form>
+	</div>
+	</div>
+</body>
+</html>
