@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style type="text/css">
+	html,body{
+		
+		height:100%;
+		width: 100%;
+		margin,padding: 0px;
+		
+	}
+	.total{
+		width:400px;
+		height: 200px;
+		margin:0 auto;
+		background: grey;
+		zoom:0;
+		position: relative;
+		top: 50%;
+		overflow: hidden;
+		margin-top:-100px;
+	}
+	.radF,.radS{
+		width: 100px;
+		height:100px;
+		border-radius: 50%;
+		background: yellow;
+		zoom:1;
+	}
+	.radF{
+		margin-left: -50px;
+		margin-top: -50px;
+	}
+	.radS{
+		position: absolute;
+		bottom: -50px;
+		right:-50px;
+	}
+</style>
+</head>
+<body>
+<div class="total">
+	<div class="radF">
+		
+	</div>
+	<div class="radS">
+		
+	</div>
+</div>
+	
+</body>
+</html>
